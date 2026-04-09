@@ -1,0 +1,16 @@
+{
+  "name": "prompt-smith",
+  "version": "1.0.0",
+  "description": "A Claude Code plugin that rewrites rough prompts into clearer, more actionable prompts, shows the optimized result, asks for confirmation, and can execute it immediately.",
+  "author": {
+    "name": "Maxence Meloni",
+    "email": "maxence@flowie.fr"
+  },
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "prompt",
+    "prompt-engineering",
+    "workflow"
+  ]
+}
