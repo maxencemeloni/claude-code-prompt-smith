@@ -18,7 +18,7 @@ Thumbs.db
 *.tmp
 *.bak
 
-# Binaries
+# Binaries and media
 *.zip
 *.tar.gz
 *.gz
@@ -26,3 +26,4 @@ Thumbs.db
 *.png
 *.jpg
 *.pdf
+*.svg

@@ -14,9 +14,11 @@ When the user runs `/prompt-smith <prompt>` the plugin should:
 2. identify the best optimization mode
 3. display the original prompt
 4. display the optimized prompt
-5. ask for confirmation by default
-6. execute only after confirmation
-7. allow a direct bypass with `--yes`
+5. show what changed (optimization delta summary)
+6. ask for confirmation by default
+7. execute only after confirmation
+8. allow a direct bypass with `--yes`
+9. allow preview-only with `--dry-run`
 
 ## Supported flags
 
@@ -25,7 +27,9 @@ When the user runs `/prompt-smith <prompt>` the plugin should:
 - `--mode compact`
 - `--mode strict`
 - `--yes`
+- `--dry-run`
 - `--list-modes`
+- `--help`
 
 ## Optimization philosophy
 
@@ -81,12 +85,14 @@ Preferred order:
 - available modes
 - original prompt
 - optimized prompt
+- what changed (optimization delta)
 - next actions
 
 ## Confirmation contract
 
 Default actions after preview:
 - `execute`
+- `edit` — provide a correction to refine the result
 - `regenerate default`
 - `regenerate agentic`
 - `regenerate compact`
@@ -94,6 +100,10 @@ Default actions after preview:
 - `cancel`
 
 If confirmed, the plugin should execute the optimized prompt in the same interaction.
+
+If `edit` is chosen, apply the user's correction and show the updated preview again.
+
+If `--dry-run` is present, show the preview only — do not offer execution options.
 
 ## Versioning rules
 

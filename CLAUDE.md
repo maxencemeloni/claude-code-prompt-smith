@@ -45,8 +45,6 @@ When the user proposes an idea or improvement, **always clarify the intent first
 
 ## What's Explicitly Out of Scope
 
-Prompt Smith is not:
-
 | Out of Scope | Why |
 |--------------|-----|
 | Code analysis tool | It optimizes prompts, not code |
@@ -61,14 +59,25 @@ Prompt Smith is not:
 | Command | Purpose |
 |---------|---------|
 | `/prompt-smith` | Optimize a rough prompt with mode selection, preview, and confirmation |
+| `/release` | Automate the full version release flow (version bump, changelog, commit, push, GitHub Release) |
 
 ### `/prompt-smith` Workflow
 
 1. Parse flags and raw prompt from `$ARGUMENTS`
 2. Select or infer optimization mode
-3. Show preview (mode, rationale, original, optimized)
-4. Wait for confirmation (execute / regenerate / cancel)
+3. Show preview (mode, rationale, original, optimized, what changed)
+4. Wait for confirmation (execute / edit / regenerate / cancel)
 5. Execute the optimized prompt if confirmed
+
+### Supported Flags
+
+| Flag | Purpose |
+|------|---------|
+| `--mode <mode>` | Select optimization mode |
+| `--yes` | Skip confirmation and execute immediately |
+| `--dry-run` | Show optimized prompt without executing |
+| `--list-modes` | Show available modes |
+| `--help` | Show usage information |
 
 ---
 
@@ -80,14 +89,11 @@ Prompt Smith is not:
 - **Minor (x.1.0)** — New flags, new modes, improved interaction patterns, non-breaking behavior changes
 - **Major (2.0.0)** — Breaking command syntax, renamed modes, incompatible execution behavior, major UX changes
 
-### When Releasing a New Version
+### Releasing
 
-1. **Update version badge** in `README.md`
-2. **Add changelog entry** in `CHANGELOG.md` (at the top, before previous versions)
-3. **Commit** with message format: `Release vX.Y.Z — Short Description`
-4. **Push** to main
+Use `/release <version> <description>` to automate the full release flow. It handles version bumps, changelog, commit, push, and GitHub Release creation.
 
-### Files to Update
+### Files Updated During Release
 
 | File | What to Update |
 |------|----------------|
@@ -99,19 +105,18 @@ Prompt Smith is not:
 
 ### Post-Release Verification
 
-After pushing, verify the plugin update works (marketplace refresh is required before update):
+After pushing, verify the plugin update works:
 ```bash
 claude plugin marketplace update prompt-smith-marketplace
 claude plugin update prompt-smith@prompt-smith-marketplace
 ```
-The version should match the just-released version. If not, check that both `plugin.json` and `marketplace.json` have the correct version.
 
 ---
 
 ## Repository Structure
 
 ```
-claude-caude-prompt-smith/
+claude-code-prompt-smith/
 ├── .claude-plugin/
 │   ├── marketplace.json    # Marketplace manifest (version + metadata)
 │   └── plugin.json         # Plugin manifest
@@ -125,6 +130,7 @@ claude-caude-prompt-smith/
 ├── assets/                 # Banner and logo images
 ├── CLAUDE.md               # This file (development context)
 ├── CHANGELOG.md            # Changelog
+├── LICENSE                 # MIT license
 ├── PROMPT_SMITH.md         # Core identity document (loaded by commands)
 ├── README.md               # User-facing documentation
 └── VERSION                 # Current version
@@ -132,51 +138,43 @@ claude-caude-prompt-smith/
 
 ---
 
-## Common Development Tasks
+## Local Testing
 
-### Adding a New Mode
+- **Dev command:** `.claude/commands/prompt-smith.md` — runs in this repo only, reads `PROMPT_SMITH.md` from project root
+- **Plugin command:** `commands/prompt-smith.md` — distributed to users, reads from `${CLAUDE_PLUGIN_ROOT}`
 
-1. Add mode definition in `PROMPT_SMITH.md`
-2. Add mode behavior in both `.claude/commands/prompt-smith.md` (dev) and `commands/prompt-smith.md` (plugin)
-3. Update `README.md` modes table
-4. Bump minor version
+After modifying either file, keep them in sync. The only difference should be the `PROMPT_SMITH.md` path and its error message.
 
-### Modifying Mode Behavior
+To verify sync: `diff .claude/commands/prompt-smith.md commands/prompt-smith.md` — should show only the path line.
 
-1. Update `PROMPT_SMITH.md` mode definition
-2. Update both command files (`.claude/commands/` and `commands/`)
-3. Bump patch version
+## Test Prompts
 
-### Adding a New Flag
+Use these to verify each mode works correctly before releasing:
 
-1. Add flag parsing in both command files
-2. Update `PROMPT_SMITH.md` supported flags section
-3. Update `README.md` command syntax
-4. Bump minor version
-
-### Adding a New Command
-
-1. Create command in both `.claude/commands/` (dev) and `commands/` (plugin)
-2. Update `README.md` commands section
-3. Update this file's Commands Overview table
-4. Bump minor version
+| Prompt | Expected Mode | Notes |
+|--------|---------------|-------|
+| `fix the bug` | default | Simple cleanup |
+| `orchestrate the deploy pipeline with validation at each step` | agentic | Multi-step execution |
+| `rename x to y` | compact | Trivial change |
+| `Update the privacy policy section 3.2 to reflect the new data retention period` | strict | Sensitive text |
+| `--help` | N/A | Should show usage, not optimize |
+| `--dry-run Refactor the auth module` | default | Should show preview only, no execute option |
+| (empty) | N/A | Should show usage |
 
 ---
 
-## Testing
+## Common Development Tasks
 
-Before releasing:
-
-1. Run `claude plugin validate .` to validate the plugin
-2. Test `/prompt-smith` with a sample prompt in each mode
-3. Verify the preview format renders correctly
-4. Test `--yes` bypass
-5. Test `--list-modes` output
-6. Test empty input (usage display)
+| Change | Files to Update | Version Bump |
+|--------|----------------|--------------|
+| New mode | `PROMPT_SMITH.md`, both command files, `README.md` | minor |
+| Mode behavior change | `PROMPT_SMITH.md`, both command files | patch |
+| New flag | Both command files, `PROMPT_SMITH.md`, `README.md` | minor |
+| New command | Both command dirs, `README.md`, this file | minor |
 
 ---
 
 ## Links
 
-- **Repository:** https://github.com/maxencemeloni/claude-caude-prompt-smith
+- **Repository:** https://github.com/maxencemeloni/claude-code-prompt-smith
 - **AI Tools Hub:** https://hub.mmapi.fr/tools?origin=claudecode

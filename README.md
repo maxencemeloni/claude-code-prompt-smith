@@ -4,7 +4,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Claude_Code-Slash_Commands-blueviolet?style=for-the-badge" alt="Claude Code"/>
-  <img src="https://img.shields.io/badge/v1.0.0-Stable-green?style=for-the-badge" alt="Version"/>
+  <img src="https://img.shields.io/badge/v1.1.0-Stable-green?style=for-the-badge" alt="Version"/>
   <img src="https://img.shields.io/badge/MIT-License-blue?style=for-the-badge" alt="License"/>
 </p>
 
@@ -29,8 +29,9 @@
 Prompt Smith takes a rough prompt and **optimizes it** for Claude Code execution:
 
 - **Optimize** — Rewrite for clarity, structure, and precision
-- **Preview** — Show original and optimized side-by-side
+- **Preview** — Show original and optimized side-by-side with a summary of what changed
 - **Choose** — Pick or switch optimization modes
+- **Edit** — Refine the optimized prompt before executing
 - **Confirm** — Review before execution (or bypass with `--yes`)
 - **Execute** — Run the optimized prompt immediately after confirmation
 
@@ -40,7 +41,7 @@ Prompt Smith takes a rough prompt and **optimizes it** for Claude Code execution
 
 ```bash
 # Add the marketplace (one-time)
-claude plugin marketplace add maxencemeloni/claude-caude-prompt-smith
+claude plugin marketplace add maxencemeloni/claude-code-prompt-smith
 
 # Install the plugin
 claude plugin install prompt-smith
@@ -63,8 +64,18 @@ claude
 ### Syntax
 
 ```text
-/prompt-smith [--mode default|agentic|compact|strict] [--yes] <prompt>
+/prompt-smith [--mode default|agentic|compact|strict] [--yes] [--dry-run] [--help] <prompt>
 ```
+
+### Flags
+
+| Flag | Purpose |
+|------|---------|
+| `--mode <mode>` | Select optimization mode (`default`, `agentic`, `compact`, `strict`) |
+| `--yes` | Skip confirmation and execute immediately |
+| `--dry-run` | Show optimized prompt without executing (preview only) |
+| `--list-modes` | Show available modes |
+| `--help` | Show usage information and examples |
 
 ### Examples
 
@@ -85,15 +96,19 @@ claude
 ```
 
 ```text
-/prompt-smith --list-modes
+/prompt-smith --dry-run Build a REST API with authentication
+```
+
+```text
+/prompt-smith --help
 ```
 
 ### Workflow
 
 1. **Parse** — Extract flags and raw prompt from input
 2. **Select mode** — Use explicit `--mode` or infer the best fit
-3. **Preview** — Show mode, rationale, original, and optimized prompt
-4. **Confirm** — Choose: execute, regenerate in another mode, or cancel
+3. **Preview** — Show mode, rationale, original, optimized prompt, and what changed
+4. **Confirm** — Choose: execute, edit, regenerate in another mode, or cancel
 5. **Execute** — Run the optimized prompt in the same session
 
 ---
@@ -140,8 +155,11 @@ Optimized prompt:
   - Do not change the public API surface
   - Every refactored path must have test coverage
 
+What changed: restructured into sections, added explicit workflow steps, clarified constraints
+
 What would you like to do?
   - execute
+  - edit
   - regenerate default
   - regenerate compact
   - regenerate strict
@@ -165,7 +183,7 @@ What would you like to do?
 
 ```bash
 # 1. Add the marketplace (one-time)
-claude plugin marketplace add maxencemeloni/claude-caude-prompt-smith
+claude plugin marketplace add maxencemeloni/claude-code-prompt-smith
 
 # 2. Install the plugin
 claude plugin install prompt-smith
@@ -202,30 +220,24 @@ When working on Prompt Smith with Claude Code, the `CLAUDE.md` file at the proje
 - **Design principles** — Fidelity first, Claude Code native, minimal structure
 - **Mode definitions** — Rationale for each optimization mode
 - **Version management** — How to bump versions and update documentation
-- **Repository structure** — Where everything lives
+- **Local testing** — How to test dev vs. plugin commands
+- **Test prompts** — Sample prompts for verifying each mode
 
 This context is only loaded when developing Prompt Smith itself, not when users run the command in their projects.
 
-### Release Checklist
+### Release
 
-When releasing a new version:
-
-| Step | Files |
-|------|-------|
-| 1. Update version badge | `README.md` |
-| 2. Add changelog entry | `CHANGELOG.md` |
-| 3. Commit with format | `Release vX.Y.Z — Description` |
-| 4. Push to main | Repository |
+Use `/release <version> <description>` to automate the full release flow.
 
 ---
 
 ## License
 
-MIT
+MIT — see [LICENSE](./LICENSE)
 
 ---
 
 <p align="center">
-  <a href="https://github.com/maxencemeloni/claude-caude-prompt-smith">GitHub</a> ·
+  <a href="https://github.com/maxencemeloni/claude-code-prompt-smith">GitHub</a> ·
   <a href="https://hub.mmapi.fr/tools?origin=claudecode">More AI Tools</a>
 </p>

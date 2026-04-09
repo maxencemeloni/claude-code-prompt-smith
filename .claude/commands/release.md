@@ -67,7 +67,7 @@ git push
 Create the release using `gh`:
 
 ```
-gh release create v{VERSION} --repo maxencemeloni/claude-caude-prompt-smith --title "v{VERSION} — {DESCRIPTION}" --notes "..."
+gh release create v{VERSION} --repo maxencemeloni/claude-code-prompt-smith --title "v{VERSION} — {DESCRIPTION}" --notes "..."
 ```
 
 The release notes should include:
@@ -75,7 +75,7 @@ The release notes should include:
 - The install instructions block:
   ```bash
   # Add the marketplace (one-time)
-  claude plugin marketplace add maxencemeloni/claude-caude-prompt-smith
+  claude plugin marketplace add maxencemeloni/claude-code-prompt-smith
 
   # Install
   claude plugin install prompt-smith
@@ -98,6 +98,6 @@ The release notes should include:
 
 - Do NOT skip any step
 - Do NOT proceed past pre-flight if checks fail
-- Always use `--repo maxencemeloni/claude-caude-prompt-smith` with `gh release create`
+- Always use `--repo maxencemeloni/claude-code-prompt-smith` with `gh release create`
 - Use HEREDOC for commit messages and release notes
 - If `gh release create` fails, do NOT try `gh auth refresh` — just report the error

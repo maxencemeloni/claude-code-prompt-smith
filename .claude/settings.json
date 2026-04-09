@@ -1,5 +1,5 @@
 {
-  "name": "claude-caude-prompt-smith",
+  "name": "claude-code-prompt-smith",
   "description": "Prompt Optimizer for Claude Code - Rewrites rough prompts into cleaner, more actionable versions",
   "permissions": {
     "deny": [

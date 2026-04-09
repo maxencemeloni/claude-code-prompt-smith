@@ -1,7 +1,7 @@
 ---
 description: "[Prompt Smith] Optimize Prompt"
 disable-model-invocation: true
-argument-hint: "[--mode default|agentic|compact|strict] [--yes] <prompt>"
+argument-hint: "[--mode default|agentic|compact|strict] [--yes] [--help] [--dry-run] <prompt>"
 ---
 
 # Prompt Smith
@@ -18,18 +18,51 @@ Read the full raw invocation from `$ARGUMENTS`.
 
 Recognize these flags anywhere in the input:
 - `--yes` -> skip confirmation and execute immediately after showing the optimized prompt
+- `--dry-run` -> show the optimized prompt but never execute, even if `--yes` is also present
 - `--mode default`
 - `--mode agentic`
 - `--mode compact`
 - `--mode strict`
 - `--list-modes` -> show the mode list and wait for the user, do not optimize yet unless a prompt is also present and the intent is unambiguous
+- `--help` -> show usage and stop
 
 Everything else is the raw prompt to optimize.
 
-If the prompt is empty after removing flags:
+If `--help` is present, show this usage block and stop — do not optimize:
+
+```
+Prompt Smith — Optimize prompts for Claude Code
+
+Usage:
+  /prompt-smith <prompt>
+  /prompt-smith --mode agentic <prompt>
+  /prompt-smith --yes <prompt>
+  /prompt-smith --dry-run <prompt>
+
+Flags:
+  --mode <mode>   Select optimization mode (default | agentic | compact | strict)
+  --yes           Skip confirmation and execute immediately
+  --dry-run       Show optimized prompt without executing
+  --list-modes    Show available modes
+  --help          Show this help
+
+Examples:
+  /prompt-smith Refactor the auth module and add tests
+  /prompt-smith --mode compact Fix the login bug
+  /prompt-smith --mode agentic Orchestrate the deploy pipeline with validation
+  /prompt-smith --mode strict --yes Update the privacy policy wording
+  /prompt-smith --list-modes
+
+Modes:
+  default   — General cleanup. Best for most prompts.
+  agentic   — Execution-focused structure. Best for orchestration, automation, multi-step delivery.
+  compact   — Shortest clean version. Best when brevity matters.
+  strict    — Maximum fidelity. Best for sensitive wording, minimal rewrite.
+```
+
+If the prompt is empty after removing flags (and `--help` is not present):
 - do not invent a prompt
-- show a short usage section
-- show the available modes with one-line descriptions
+- show the same usage block as `--help`
 - ask the user to rerun the command with a prompt
 
 ## Core optimization rules
@@ -114,9 +147,13 @@ Show:
    - `strict` - maximum fidelity
 5. `Original prompt:` in a fenced code block
 6. `Optimized prompt:` in a fenced code block
+7. `What changed:` a brief one-line or short bullet list describing the key improvements made (e.g., "restructured into sections, added explicit constraints, clarified deliverables"). If the prompt was already strong, say "Minimal changes — prompt was already well-structured."
 
-If `--yes` is NOT present, stop after the preview and ask for confirmation with exactly these options:
+If `--dry-run` is present, show the preview and stop. Do not offer execution options.
+
+If `--yes` is NOT present (and `--dry-run` is not present), stop after the preview and ask for confirmation with exactly these options:
 - `execute`
+- `edit` — provide a correction to refine the optimized prompt
 - `regenerate default`
 - `regenerate agentic`
 - `regenerate compact`
@@ -127,11 +164,17 @@ Then wait for the user.
 
 ### Phase 2: execution
 
-If the user confirms with `execute`, or if `--yes` was passed:
+If the user confirms with `execute`, or if `--yes` was passed (and `--dry-run` is not present):
 - briefly state that you are executing the optimized prompt
 - then treat the optimized prompt as the active instruction and carry it out immediately in the same turn
 - do not ask the user to repeat the prompt
 - do not re-explain the optimization rules
+
+If the user chooses `edit`:
+- ask what they want to change
+- apply the correction to the optimized prompt while keeping the same mode
+- show the updated preview with the same structure
+- ask for confirmation again
 
 If the user asks to regenerate in another mode:
 - keep the original raw prompt unchanged
