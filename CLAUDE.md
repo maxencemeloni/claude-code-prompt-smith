@@ -58,10 +58,10 @@ When the user proposes an idea or improvement, **always clarify the intent first
 
 | Command | Purpose |
 |---------|---------|
-| `/prompt-smith` | Optimize a rough prompt with mode selection, preview, and confirmation |
+| `/prompt` | Optimize a rough prompt with mode selection, preview, and confirmation |
 | `/release` | Automate the full version release flow (version bump, changelog, commit, push, GitHub Release) |
 
-### `/prompt-smith` Workflow
+### `/prompt` Workflow
 
 1. Parse flags and raw prompt from `$ARGUMENTS`
 2. Select or infer optimization mode
@@ -122,11 +122,11 @@ claude-code-prompt-smith/
 │   └── plugin.json         # Plugin manifest
 ├── .claude/
 │   ├── commands/           # Dev-time slash commands (local development)
-│   │   ├── prompt-smith.md
+│   │   ├── prompt.md
 │   │   └── release.md
 │   └── settings.json       # Project permissions (deny rules)
 ├── commands/               # Plugin commands (distributed to users)
-│   └── prompt-smith.md
+│   └── prompt.md
 ├── assets/                 # Banner and logo images
 ├── CLAUDE.md               # This file (development context)
 ├── CHANGELOG.md            # Changelog
@@ -140,12 +140,12 @@ claude-code-prompt-smith/
 
 ## Local Testing
 
-- **Dev command:** `.claude/commands/prompt-smith.md` — runs in this repo only, reads `PROMPT_SMITH.md` from project root
-- **Plugin command:** `commands/prompt-smith.md` — distributed to users, reads from `${CLAUDE_PLUGIN_ROOT}`
+- **Dev command:** `.claude/commands/prompt.md` — runs in this repo only, reads `PROMPT_SMITH.md` from project root
+- **Plugin command:** `commands/prompt.md` — distributed to users, reads from `${CLAUDE_PLUGIN_ROOT}`
 
 After modifying either file, keep them in sync. The only difference should be the `PROMPT_SMITH.md` path and its error message.
 
-To verify sync: `diff .claude/commands/prompt-smith.md commands/prompt-smith.md` — should show only the path line.
+To verify sync: `diff .claude/commands/prompt.md commands/prompt.md` — should show only the path line.
 
 ## Test Prompts
 

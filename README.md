@@ -48,7 +48,7 @@ claude plugin install prompt-smith
 
 # Use (in any project)
 claude
-/prompt-smith Refactor this function to be more readable
+/prompt Refactor this function to be more readable
 ```
 
 > **Update:** `claude plugin marketplace update prompt-smith-marketplace && claude plugin update prompt-smith@prompt-smith-marketplace`
@@ -59,12 +59,12 @@ claude
 
 | Command | Purpose |
 |---------|---------|
-| `/prompt-smith` | Optimize a rough prompt with mode selection, preview, and confirmation |
+| `/prompt` | Optimize a rough prompt with mode selection, preview, and confirmation |
 
 ### Syntax
 
 ```text
-/prompt-smith [--mode default|agentic|compact|strict] [--yes] [--dry-run] [--help] <prompt>
+/prompt [--mode default|agentic|compact|strict] [--yes] [--dry-run] [--help] <prompt>
 ```
 
 ### Flags
@@ -80,27 +80,27 @@ claude
 ### Examples
 
 ```text
-/prompt-smith Refactor this function to be more readable
+/prompt Refactor this function to be more readable
 ```
 
 ```text
-/prompt-smith --mode agentic Organize the work in parallel and validate each step
+/prompt --mode agentic Organize the work in parallel and validate each step
 ```
 
 ```text
-/prompt-smith --mode compact Rewrite this prompt to be shorter
+/prompt --mode compact Rewrite this prompt to be shorter
 ```
 
 ```text
-/prompt-smith --mode strict --yes Fix this prompt without changing its intent
+/prompt --mode strict --yes Fix this prompt without changing its intent
 ```
 
 ```text
-/prompt-smith --dry-run Build a REST API with authentication
+/prompt --dry-run Build a REST API with authentication
 ```
 
 ```text
-/prompt-smith --help
+/prompt --help
 ```
 
 ### Workflow

@@ -34,10 +34,10 @@ If `--help` is present, show this usage block and stop — do not optimize:
 Prompt Smith — Optimize prompts for Claude Code
 
 Usage:
-  /prompt-smith <prompt>
-  /prompt-smith --mode agentic <prompt>
-  /prompt-smith --yes <prompt>
-  /prompt-smith --dry-run <prompt>
+  /prompt <prompt>
+  /prompt --mode agentic <prompt>
+  /prompt --yes <prompt>
+  /prompt --dry-run <prompt>
 
 Flags:
   --mode <mode>   Select optimization mode (default | agentic | compact | strict)
@@ -47,11 +47,11 @@ Flags:
   --help          Show this help
 
 Examples:
-  /prompt-smith Refactor the auth module and add tests
-  /prompt-smith --mode compact Fix the login bug
-  /prompt-smith --mode agentic Orchestrate the deploy pipeline with validation
-  /prompt-smith --mode strict --yes Update the privacy policy wording
-  /prompt-smith --list-modes
+  /prompt Refactor the auth module and add tests
+  /prompt --mode compact Fix the login bug
+  /prompt --mode agentic Orchestrate the deploy pipeline with validation
+  /prompt --mode strict --yes Update the privacy policy wording
+  /prompt --list-modes
 
 Modes:
   default   — General cleanup. Best for most prompts.

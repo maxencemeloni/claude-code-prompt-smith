@@ -9,7 +9,7 @@ It is designed for users who already think in prompts and want a repeatable way 
 
 ## Product behavior
 
-When the user runs `/prompt-smith <prompt>` the plugin should:
+When the user runs `/prompt <prompt>` the plugin should:
 1. parse optional flags
 2. identify the best optimization mode
 3. display the original prompt

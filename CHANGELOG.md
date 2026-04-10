@@ -9,6 +9,7 @@ All notable changes to this plugin are documented here.
 ### Changes
 
 - Renamed repository from `claude-caude-prompt-smith` to `claude-code-prompt-smith`
+- Renamed command from `/prompt-smith` to `/prompt` (invoked as `/prompt-smith:prompt`)
 - Added `--help` flag with full usage block and examples
 - Added `--dry-run` flag to preview optimized prompts without executing
 - Added `edit` option after preview to refine the optimized prompt before executing
