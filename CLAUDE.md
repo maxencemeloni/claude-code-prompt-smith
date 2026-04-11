@@ -177,4 +177,4 @@ Use these to verify each mode works correctly before releasing:
 ## Links
 
 - **Repository:** https://github.com/maxencemeloni/claude-code-prompt-smith
-- **AI Tools Hub:** https://hub.mmapi.fr/tools?origin=claudecode
+- **Website:** https://prompt-smith.mmapi.fr/

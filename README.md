@@ -232,6 +232,16 @@ Use `/release <version> <description>` to automate the full release flow.
 
 ---
 
+## More Claude Code Plugins
+
+| Plugin | Command | Description |
+|--------|---------|-------------|
+| [Agent Smith](https://github.com/maxencemeloni/claude-code-agent-smith) | `/analyze-agent` | Analyzes, validates, and optimizes your Claude Code configuration. Full 7-pillar evaluation with interactive triage and guided fixes. |
+
+[Check out Agent Smith for more details](https://agent-smith.mmapi.fr/)
+
+---
+
 ## License
 
 MIT — see [LICENSE](./LICENSE)
@@ -240,5 +250,5 @@ MIT — see [LICENSE](./LICENSE)
 
 <p align="center">
   <a href="https://github.com/maxencemeloni/claude-code-prompt-smith">GitHub</a> ·
-  <a href="https://hub.mmapi.fr/tools?origin=claudecode">More AI Tools</a>
+  <a href="https://prompt-smith.mmapi.fr/">Website</a>
 </p>
